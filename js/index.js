@@ -120,23 +120,26 @@ const details = document.querySelector("details");
 
 contactsItems.forEach((item, i) => {
   item.addEventListener('click', function() {
-      contactsCards.forEach(card => {
-          card.classList.remove('visible');
-      });
-      contactsCitiesHead.innerHTML = this.innerHTML;
-      contactsCards[i].classList.add('visible');
-      details.classList.remove("contacts__cities_active");
-      details.removeAttribute("open");
-      details.classList.add("contacts__cities_active");
+    contactsCards.forEach(card => {
+      card.classList.remove('visible');
+    });
+    contactsCitiesHead.innerHTML = this.innerHTML;
+    contactsCards[i].classList.add('visible');
+    details.classList.remove("contacts__cities_active");
+    details.removeAttribute("open");
+    details.classList.add("contacts__cities_active");
   });
 });
 
-for (const card of contactsCards) {
-  const buttonContacts = card.querySelector('.button_contacts');
-  buttonContacts.addEventListener('click', function() {
-    const phoneElement = card.querySelector('.contacts__phone');
-    const phoneNumber = phoneElement.textContent;
-    window.location.href = `tel:${phoneNumber}`;
-  });
-}
-
+contactsCards.forEach(card => {
+  if (card.classList.contains('visible')) {
+    const phone = card.querySelector('.contacts__phone').textContent;
+    const callButton = card.querySelector('.button_contacts');
+    callButton.addEventListener('click', () => {
+      // Code for calling the phone number goes here
+      // Note: this code is just for demonstration purposes, 
+      // and will not actually make a phone call.
+      window.location.href = `tel:${phone}`;
+    });
+  }
+});
