@@ -130,16 +130,3 @@ contactsItems.forEach((item, i) => {
     details.classList.add("contacts__cities_active");
   });
 });
-
-contactsCards.forEach(card => {
-  if (card.classList.contains('visible')) {
-    const phone = card.querySelector('.contacts__phone').textContent;
-    const callButton = card.querySelector('.button_contacts');
-    callButton.addEventListener('click', () => {
-      // Code for calling the phone number goes here
-      // Note: this code is just for demonstration purposes, 
-      // and will not actually make a phone call.
-      window.location.href = `tel:${phone}`;
-    });
-  }
-});
