@@ -1,1 +1,0 @@
-https://rolling-scopes-school.github.io/daryatsyb-JSFEPRESCHOOL2022Q4/plants/
