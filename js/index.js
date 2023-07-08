@@ -1,12 +1,3 @@
-console.log(
-  'Plants#2 - Адаптивная вёрстка\n'+
-  '1. Вёрстка соответствует макету. Ширина 768px +24\n'+
-  '2. Вёрстка соответствует макету. Ширина 380px +24\n'+
-  '3. Ни на одном из разрешений до 320px не появляется полоса прокрутки.Весь контент страницы сохраняется +15\n'+
-  '4. Реализовано адаптивное меню +22\n');
-
-console.log('Самооценка проекта: ' + 85 + ' баллов');
-
 // Изменение высоты фиксированного меню при скроле страницы
 // Получаем элемент меню
 let menu = document.querySelector('.header'),
@@ -20,6 +11,7 @@ window.addEventListener('scroll', function() {
   // Изменяем высоту меню в зависимости от значения scrollTop
   if (scrollTop > 0) {
     menu.style.height = '70px';
+    menu.style.background = '#fff';
     mobileMenu.style.top = '70px';
   } else if (window.innerWidth <= 380) {
     menu.style.height = '96px';
@@ -28,6 +20,7 @@ window.addEventListener('scroll', function() {
     mobileMenu.style.top = '80px';
   } else {
     menu.style.height = '134px';
+    menu.style.background = 'none';
   }
 });
 
@@ -49,28 +42,36 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
   });
 });
 
-// Кликабельность кнопок в секции "service"
-const serviceBtn = document.querySelectorAll('.service__btn'),
-      serviceCards = document.querySelectorAll('.service__item');
+const serviceBtn = document.querySelectorAll('.service__btn');
+const serviceCards = document.querySelectorAll('.service__item');
 
 for (let i = 0; i < serviceBtn.length; i++) {
   serviceBtn[i].addEventListener('click', function() {
-    let activeBtn = document.querySelectorAll('.service__btn_active');
-    if (this.classList.contains('service__btn_active')) {
-      this.classList.remove('service__btn_active');
-      for (let j = 0; j < serviceCards.length; j++) {
-        serviceCards[j].classList.remove('blur');
+    // Определяем активную кнопку
+    let activeBtn = document.querySelector('.service__btn_active');
+
+    // Если текущая кнопка неактивна, то делаем ее активной и скрываем карточки, которые не связаны с данной кнопкой
+    if (!this.classList.contains('service__btn_active')) {
+      // Если уже есть активная кнопка, то снимаем у нее класс 'service__btn_active' и показываем все карточки
+      if (activeBtn) {
+        activeBtn.classList.remove('service__btn_active');
+        for (let j = 0; j < serviceCards.length; j++) {
+          serviceCards[j].classList.remove('hidden');
+        }
       }
-    } else if (activeBtn.length < 2) {
+
+      // Делаем текущую кнопку активной и скрываем карточки, которые не связаны с данной кнопкой
       this.classList.add('service__btn_active');
       for (let j = 0; j < serviceCards.length; j++) {
         if (serviceCards[j].dataset.btn !== this.dataset.btn) {
-          serviceCards[j].classList.add('blur');
+          serviceCards[j].classList.add('hidden');
         }
       }
-    } else {
-      alert("Нельзя нажать 3 кнопки одновременно");
-      return;
+    } else { // Если текущая кнопка активна, то убираем класс активности и у всех кнопок убираем класс .hidden
+      this.classList.remove('service__btn_active');
+      for (let j = 0; j < serviceCards.length; j++) {
+        serviceCards[j].classList.remove('hidden');
+      }
     }
   });
 }
